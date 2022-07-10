@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/providers/cart.dart';
 import 'package:flutter_shop/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/product.dart';
 
 class ProductItem extends StatelessWidget {
-  // const ProductItem({Key? key}) : super(key: key);
-
-// Taking Product Data from Parent
-  // final Product productItem;
-
-  // const ProductItem(this.productItem);
-
   @override
   Widget build(BuildContext context) {
-    final productItem = Provider.of<Product>(context);
+    final productItem = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -37,18 +32,21 @@ class ProductItem extends StatelessWidget {
             style: TextStyle(fontSize: 12),
             textAlign: TextAlign.center,
           ),
-          leading: IconButton(
-            onPressed: () => productItem.toggleFavouriteStatus(),
-            icon: Icon(
-              productItem.isFavourite
-                  ? Icons.favorite
-                  : Icons.favorite_border_outlined,
-              size: 20,
-              color: Theme.of(context).secondaryHeaderColor,
+          leading: Consumer<Product>(
+            builder: (ctx, productItem, child) => IconButton(
+              onPressed: () => productItem.toggleFavouriteStatus(),
+              icon: Icon(
+                productItem.isFavourite
+                    ? Icons.favorite
+                    : Icons.favorite_border_outlined,
+                size: 20,
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
           trailing: IconButton(
-            onPressed: null,
+            onPressed: () => cart.addItem(
+                productItem.id, productItem.price, productItem.title),
             icon: Icon(
               Icons.shopping_cart,
               size: 20,
