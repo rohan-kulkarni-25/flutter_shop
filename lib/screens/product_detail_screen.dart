@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -27,8 +28,38 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(productItem.title),
       ),
-      body: Center(
-        child: Text(productItem.description.toString()),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                productItem.imageUrl,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              '\$ ${productItem.price}',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              width: double.infinity,
+              child: Text(
+                productItem.description,
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

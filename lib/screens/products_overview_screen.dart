@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/screens/cart_screen.dart';
+import 'package:flutter_shop/widgets/app_drawer.dart';
 import 'package:flutter_shop/widgets/badge.dart';
 import 'package:flutter_shop/widgets/product_item.dart';
 import 'package:flutter_shop/widgets/product_grid.dart';
@@ -24,6 +25,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
     // Scaffold is returning because it is screen and APP BAR AND BODY IS REQUIRED
     return Scaffold(
+      
       appBar: AppBar(
         title: const Text('My Shop'),
         actions: [
@@ -69,6 +71,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           // Consumer(child: Badge(child: IconButton(icon: Icons.shopping_cart),0 , color:Colors.red)),
         ],
       ),
+      drawer: AppDrawer(),
       // Using Grid View Builder for building long grid ( Performance Effective )
       body: ProductsGrid(_showFavouritesOnly),
     );
